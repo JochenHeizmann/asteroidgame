@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body{
+	height: 100%;
+	overflow: hidden; /* keeps scrollbar off IE */
+	font-family: arial,sans-serif;
+	font-size: 13px;
+	color: #fff;
+	background-color: #000;
+	padding:0px;
+	margin:0px;
+}
+canvas:focus{
+	outline:none;
+}
+
+</style>
+</head>
+
+<body>
+<canvas id="GameCanvas" onclick="javascript:this.focus();" width=640 height=480 style="width:640px; height: 480px; margin: auto; padding: 0;" tabindex=1></canvas><br>
+<script language="javascript" src="main.js">Javascript not supported!</script>
+
+<script type="text/javascript">
+<!--
+
+window.onresize = function() {
+
+ var viewportwidth;
+ var viewportheight;
+ 
+ // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+ 
+ if (typeof window.innerWidth != 'undefined')
+ {
+      viewportwidth = window.innerWidth,
+      viewportheight = window.innerHeight
+ }
+ 
+// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+
+ else if (typeof document.documentElement != 'undefined'
+     && typeof document.documentElement.clientWidth !=
+     'undefined' && document.documentElement.clientWidth != 0)
+ {
+       viewportwidth = document.documentElement.clientWidth,
+       viewportheight = document.documentElement.clientHeight
+ }
+ 
+ // older versions of IE
+ 
+ else
+ {
+       viewportwidth = document.getElementsByTagName('body')[0].clientWidth,
+       viewportheight = document.getElementsByTagName('body')[0].clientHeight
+ }
+ document.getElementById('GameCanvas').width = viewportwidth;
+ document.getElementById('GameCanvas').height = viewportheight;
+ document.getElementById('GameCanvas').style.width = viewportwidth + "px";
+ document.getElementById('GameCanvas').style.height = viewportheight + "px";
+};
+window.onresize();
+ 
+//-->
+</script>
+
+
+</body>
+</html>

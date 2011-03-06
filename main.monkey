@@ -92,9 +92,6 @@ Class MyGame Extends App
 		InvalidateRect.Clear()
 	End 	
 	
-	Method RefreshBG:Void()
-	End Method
-	
 	Method OnLoading:Void()
 		Cls
 		DrawText("Loading...", 0, 0)
