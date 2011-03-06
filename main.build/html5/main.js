@@ -1046,6 +1046,7 @@ bb_main_MyGame.prototype.bbOnCreate=function(){
 	this.bbInitNewGame();
 	bb_invalidaterect_InvalidateRect_Clear();
 	bb_invalidaterect_InvalidateRect_Add(0,0,bb_graphics_DeviceWidth(),bb_graphics_DeviceHeight());
+	return 1;
 }
 bb_main_MyGame.prototype.bbDoCollision=function(){
 	var bbradius=0;
@@ -1103,6 +1104,7 @@ bb_main_MyGame.prototype.bbOnUpdate=function(){
 		this.bbDoCollision();
 	}
 	bb_explosion_Explosion_UpdateAll();
+	return 1;
 }
 bb_main_MyGame.prototype.bbRenderBG=function(){
 	var bb=bb_invalidaterect_InvalidateRect_list.bbObjectEnumerator();
@@ -1138,10 +1140,12 @@ bb_main_MyGame.prototype.bbOnRender=function(){
 		bb_invalidaterect_InvalidateRect_Add(0,0,370,75);
 	}
 	bb_explosion_Explosion_RenderAll();
+	return 1;
 }
 bb_main_MyGame.prototype.bbOnLoading=function(){
 	bb_graphics_Cls(0.000000,0.000000,0.000000);
 	bb_graphics_DrawText("Loading...",0.000000,0.000000,0.000000,0.000000);
+	return 1;
 }
 function bb_app_AppDevice(){
 	gxtkApp.call(this);
@@ -1746,9 +1750,9 @@ function bb_spaceobject_SpaceObject(){
 	Object.call(this);
 	this.bbx=0;
 	this.bby=0;
+	this.bbrotation=0;
 	this.bbdx=0;
 	this.bbdy=0;
-	this.bbrotation=0;
 }
 function bb_spaceobject_SpaceObject_new(){
 	return this;
@@ -1779,7 +1783,7 @@ function bb_bullet_Bullet_Spawn(bbx,bby,bbr,bbspeedx,bbspeedy){
 		bbs.bby=bby;
 		bbs.bbdx=Math.cos((bbr)*0.0174532925)*6.0+bbspeedx;
 		bbs.bbdy=Math.sin((bbr)*0.0174532925)*6.0+bbspeedy;
-		bbs.bbrotation=((-bbr)|0);
+		bbs.bbrotation=-bbr;
 		bb_bullet_Bullet_list.bbAddLast(bbs);
 		bb_bullet_Bullet_cdown=0;
 		bb_soundplayer_SoundPlayer_PlayFx(bb_soundplayer_SoundPlayer_soundLaser);
@@ -1804,7 +1808,7 @@ function bb_bullet_Bullet_UpdateAll(){
 	}
 }
 bb_bullet_Bullet.prototype.bbRender=function(){
-	bb_invalidaterect_InvalidateRect_Draw(bb_bullet_Bullet_img,this.bbx,this.bby,(this.bbrotation),1.000000,1.000000,0);
+	bb_invalidaterect_InvalidateRect_Draw(bb_bullet_Bullet_img,this.bbx,this.bby,this.bbrotation,1.000000,1.000000,0);
 }
 function bb_bullet_Bullet_RenderAll(){
 	var bb=bb_bullet_Bullet_list.bbObjectEnumerator();
@@ -1881,7 +1885,7 @@ function bb_ship_Ship_Init(){
 }
 bb_ship_Ship.prototype.bbUpdate=function(){
 	if((bb_input_KeyDown(88))!=0){
-		bb_bullet_Bullet_Spawn(this.bbx,this.bby,(this.bbrotation),this.bbdx,this.bbdy);
+		bb_bullet_Bullet_Spawn(this.bbx,this.bby,this.bbrotation,this.bbdx,this.bbdy);
 	}
 	if((bb_input_KeyDown(38))!=0){
 		this.bbdx+=Math.cos((this.bbrotation)*0.0174532925)*0.08;
@@ -1914,12 +1918,12 @@ bb_ship_Ship.prototype.bbUpdate=function(){
 	if(this.bbturnSpeed<-4.000000){
 		this.bbturnSpeed=-4.000000;
 	}
-	this.bbrotation+=((this.bbturnSpeed)|0);
-	if(this.bbrotation>360){
-		this.bbrotation-=360;
+	this.bbrotation+=this.bbturnSpeed;
+	if(this.bbrotation>360.000000){
+		this.bbrotation-=360.000000;
 	}
-	if(this.bbrotation<0){
-		this.bbrotation+=360;
+	if(this.bbrotation<0.000000){
+		this.bbrotation+=360.000000;
 	}
 	if(this.bbturnSpeed>0.18){
 		this.bbturnSpeed-=0.18;
@@ -1950,11 +1954,10 @@ function bb_ship_Ship_new(){
 	return this;
 }
 bb_ship_Ship.prototype.bbRender=function(){
-	bb_invalidaterect_InvalidateRect_Draw(bb_ship_Ship_image,this.bbx,this.bby,(-this.bbrotation),1.000000,1.000000,0);
+	bb_invalidaterect_InvalidateRect_Draw(bb_ship_Ship_image,this.bbx,this.bby,-this.bbrotation,1.000000,1.000000,0);
 }
 function bb_asteroid_Asteroid(){
 	bb_spaceobject_SpaceObject.call(this);
-	this.bbrotation=0;
 	this.bbsize=0;
 }
 bb_asteroid_Asteroid.prototype=extend_class(bb_spaceobject_SpaceObject);

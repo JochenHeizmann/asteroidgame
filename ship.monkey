@@ -19,8 +19,8 @@ Class Ship Extends SpaceObject
 	Field turnSpeed:Float
 
 	Method New()
-		x = 300
-		y = 400
+		x = DeviceWidth() / 2
+		y = DeviceHeight() / 2 + DeviceHeight() / 4
 	End
 	
 	Function Init:Void()

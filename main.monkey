@@ -19,7 +19,7 @@ Class MyGame Extends App
 	
 	Global score : Int
 
-	Method OnCreate:Void()
+	Method OnCreate:Int()
 		SetUpdateRate(60)
 		bg = LoadImage("asteroidgame/bg.png")
 		SoundPlayer.Init()
@@ -28,6 +28,7 @@ Class MyGame Extends App
 		
 		InvalidateRect.Clear()
 		InvalidateRect.Add(0,0,DeviceWidth(), DeviceHeight())
+		Return 1
 	End
 	
 	Method InitNewGame:Void()
@@ -39,11 +40,11 @@ Class MyGame Extends App
 
 		Asteroid.list = Null
 		For Local i:Int = 0 To 2
-			Asteroid.Spawn(Rnd(0,DeviceWidth()), Rnd(0,DeviceHeight()), Asteroid.LARGE)
+			Asteroid.Spawn(Rnd(0,DeviceWidth()), Rnd(0,DeviceHeight() / 2), Asteroid.LARGE)
 		End
 	End
 	
-	Method OnUpdate:Void()
+	Method OnUpdate:Int()
 		If ship
 			ship.Update()
 		Else
@@ -56,9 +57,10 @@ Class MyGame Extends App
 		Asteroid.UpdateAll()
 		If ship Then DoCollision()
 		Explosion.UpdateAll()
+		Return 1
 	End
 	
-	Method OnRender:Void()
+	Method OnRender:Int()
 		RenderBG()
 		Asteroid.RenderAll()
 		Bullet.RenderAll()
@@ -73,6 +75,7 @@ Class MyGame Extends App
 			InvalidateRect.Add(0,0, 370, 75)
 		End 
 		Explosion.RenderAll()
+		Return 1
 	End
 	
 	Method RenderBG:Void()
@@ -92,9 +95,10 @@ Class MyGame Extends App
 		InvalidateRect.Clear()
 	End 	
 	
-	Method OnLoading:Void()
+	Method OnLoading:Int()
 		Cls
 		DrawText("Loading...", 0, 0)
+		Return 1
 	End Method
 	
 	Method DoCollision:Void()

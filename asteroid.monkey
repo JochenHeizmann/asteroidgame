@@ -17,8 +17,6 @@ Class Asteroid Extends SpaceObject
 	
 	Field size:Int
 
-	Field rotation:Float
-
 	Method New()
 		If Not image[SMALL] Then image[SMALL] = LoadImage("asteroidgame/asteroid3.png", 1, Image.MidHandle)
 		If Not image[MEDIUM] Then image[MEDIUM] = LoadImage("asteroidgame/asteroid1.png", 1, Image.MidHandle)

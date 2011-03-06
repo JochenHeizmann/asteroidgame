@@ -8,8 +8,8 @@ Class SoundPlayer
 	Global soundCh:Int
 	
 	Function Init:Void()
-		SoundPlayer.soundLaser = LoadSound("asteroidgame/laszer.wav")
-		SoundPlayer.soundXplode = LoadSound("asteroidgame/xplode.wav")
+		SoundPlayer.soundLaser = LoadSound("asteroidgame/laszer.mp3")
+		SoundPlayer.soundXplode = LoadSound("asteroidgame/xplode.mp3")
 	End
 
 	Function PlayFx:Void(s:Sound)
